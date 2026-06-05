@@ -7,6 +7,7 @@
 - 安全组开放 `22`、`80`
 - 建议系统：Ubuntu 22.04、Debian、Alibaba Cloud Linux
 - 如果后续绑定域名并启用 HTTPS，再开放 `443`
+- 如果使用现有 `bigclouder.com` Nginx 配置，可把 `deploy/nginx-bigclouder-drd-web.conf` 追加到当前 Nginx 配置中，对应域名是 `d.bigclouder.com`
 
 ## 一键部署
 
@@ -25,6 +26,34 @@ chmod +x ecs-setup.sh
 ```
 
 部署完成后访问 ECS 公网 IP。
+
+## 整合到现有 bigclouder.com Nginx 配置
+
+已准备配置片段：
+
+```text
+deploy/nginx-bigclouder-drd-web.conf
+```
+
+它会新增：
+
+```text
+d.bigclouder.com
+www.d.bigclouder.com
+```
+
+站点根目录：
+
+```text
+/var/www/drd_web
+```
+
+把配置放到服务器后检查并重载：
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
 
 ## 更新网站
 
